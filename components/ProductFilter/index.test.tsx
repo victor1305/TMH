@@ -1,26 +1,38 @@
+import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import ProductFilter from "./ProductFilter";
+import ProductFilter from "./";
 
 describe("ProductFilter Component", () => {
-  it("renders input with the correct placeholder", () => {
+  it("renders the input field with the correct placeholder", () => {
     render(<ProductFilter filter="" onFilterChange={() => {}} />);
-    const input = screen.getByPlaceholderText(/Buscar productos.../i);
-    expect(input).toBeInTheDocument();
+
+    const inputElement = screen.getByPlaceholderText("Buscar productos...");
+    expect(inputElement).toBeInTheDocument();
+    expect(inputElement).toHaveValue("");
+  });
+
+  it("renders the label correctly", () => {
+    render(<ProductFilter filter="" onFilterChange={() => {}} />);
+
+    const labelElement = screen.getByLabelText("Filtrar productos:");
+    expect(labelElement).toBeInTheDocument();
   });
 
   it("calls onFilterChange when the input value changes", () => {
     const handleFilterChange = jest.fn();
     render(<ProductFilter filter="" onFilterChange={handleFilterChange} />);
 
-    const input = screen.getByPlaceholderText(/Buscar productos.../i);
-    fireEvent.change(input, { target: { value: "Laptop" } });
+    const inputElement = screen.getByPlaceholderText("Buscar productos...");
+    fireEvent.change(inputElement, { target: { value: "Laptop" } });
 
+    expect(handleFilterChange).toHaveBeenCalledTimes(1);
     expect(handleFilterChange).toHaveBeenCalledWith("Laptop");
   });
 
-  it("sets the correct input value based on props", () => {
+  it("displays the current filter value", () => {
     render(<ProductFilter filter="Smartphone" onFilterChange={() => {}} />);
-    const input = screen.getByPlaceholderText(/Buscar productos.../i);
-    expect(input).toHaveValue("Smartphone");
+
+    const inputElement = screen.getByPlaceholderText("Buscar productos...");
+    expect(inputElement).toHaveValue("Smartphone");
   });
 });
