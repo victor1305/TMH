@@ -1,22 +1,15 @@
-import React from 'react';
-import UserProfile from '@/components/UserProfile';
+import React from "react";
 
-async function getUserData() {
+import { getUserData } from "@/lib/api";
 
-  return {
-    name: 'Víctor Sánchez',
-    email: 'sanchezlealvictor@gmail.com',
-    age: 35,
-  };
-}
+import UserProfile from "@/components/UserProfile";
 
-export default async function ProfilePage () {
-
+export default async function ProfilePage() {
   const user = await getUserData();
 
   return (
-    <div>
-      <h1>Perfil de Usuario</h1>
+    <div className="flex flex-col items-center justify-center h-screen">
+      <h1 className="text-3xl font-bold">Perfil de Usuario</h1>
       <UserProfile {...user} />
     </div>
   );

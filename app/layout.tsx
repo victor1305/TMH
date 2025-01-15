@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -27,7 +28,20 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-black`}
       >
-        {children}
+        <nav className="px-4 py-2 bg-gray-100">
+          <ul className="flex justify-end">
+            <li className="mr-4">
+              <Link href="/">Home</Link>
+            </li>
+            <li className="mr-4">
+              <Link href="/profile">Perfil</Link>
+            </li>
+            <li>
+              <Link href="/products">Productos</Link>
+            </li>
+          </ul>
+        </nav>
+        <main>{children}</main>
       </body>
     </html>
   );
